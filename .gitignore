@@ -1,0 +1,10 @@
+Early_Engine/
+Early_Engine/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+venv/
+.env
+*.sqlite3
+.DS_Store
