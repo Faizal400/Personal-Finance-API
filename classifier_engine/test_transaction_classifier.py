@@ -1,5 +1,5 @@
 from datetime import datetime
-from transaction_classifier import group_by_counterparty, calculate_txn_stats, classify_group, classify_tentative_groups
+from classifier_engine.transaction_classifier import group_by_counterparty, calculate_txn_stats, classify_group, classify_tentative_groups
 
 def test_calculate_txn_stats_uniform():
     mean, stdev = calculate_txn_stats([30, 30, 30])
