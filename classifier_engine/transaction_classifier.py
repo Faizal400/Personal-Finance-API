@@ -90,7 +90,7 @@ def get_recurring_metrics(day_gaps: list, price_history: list) -> tuple[float,fl
     return time_mean, time_stdev, amount_mean, amount_stdev
 # =======================
 # classifying actual groups
-# Use DATE ("timestamp") (specifically date gaps as dates aren't consistent in their true 1:1 form) & PRICE ("amount")
+# DATE ("timestamp") (specifically date gaps as dates aren't consistent in their true 1:1 form) & PRICE ("amount")
 
 def classify_tentative_groups(time_stdev: float, distinct_prices_percent: float, time_mean:float) -> str:
     """

@@ -117,3 +117,19 @@ What this does not prove:
 - **Annual subscriptions need 2+ years of data:** With only one or two data points the engine cannot detect periodicity. Annual charges with insufficient history fall through to neither.
 - **Weights are reasoned, not derived:** The weighted sums were chosen by judgement. A different weighting may generalise better to unseen data.
 - **Rule-based performance ceiling:** A machine learning approach trained on a large labelled dataset would handle most of these edge cases more robustly. The rule-based system is correct for this stage but has a lower ceiling.
+
+### Backend / API known debt
+
+- **`amount` precision across the DB↔engine boundary.** Amounts are stored
+  as `DecimalField` (correct for currency), but the classifier engine performs
+  float arithmetic on them. For the current statistical features this is
+  harmless, but a future version should keep decimal precision end-to-end or
+  document the tolerance explicitly.
+- **Field coupling between the API layer and the engine.** The classification
+  endpoint hand-selects the transaction fields the engine expects via `.values(...)`.
+  This is a manual coupling point — adding an engine-relevant field requires
+  updating the view. A serializer-driven or schema-driven approach would remove
+  the duplication.
+- **No API-layer integration tests yet.** Engine logic is unit-tested, but the
+  API endpoints (auth, transaction CRUD, classification) are not yet covered by
+  integration tests. Planned next.
