@@ -1,4 +1,5 @@
 # Transaction Classifier Engine
+![CI](https://github.com/Faizal400/Personal-Finance-API/actions/workflows/ci.yml/badge.svg)
 
 ## What It Does
 
