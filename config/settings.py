@@ -138,6 +138,7 @@ SPECTACULAR_SETTINGS = {
     'TITLE': 'Personal Finance API',
     'DESCRIPTION': 'Detects recurring payments and subscriptions from transaction data.',
     'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
 
 # Static files (CSS, JavaScript, Images)

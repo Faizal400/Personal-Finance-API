@@ -18,8 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from django.views.generic import RedirectView
 
 urlpatterns = [
+    path('', RedirectView.as_view(url='api/docs/'), name='home'),
     path('admin/', admin.site.urls),
     path('api/', include('transactions.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name="token_obtain_pair"),
