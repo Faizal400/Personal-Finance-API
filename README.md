@@ -178,8 +178,7 @@ Honest list. Each of these is a real gap, not a hypothetical.
 
 **Product**
 - **No registration endpoint.** Users can only be created via admin or the seed command. There's no public signup.
-- **No bulk import.** Transactions go in one at a time via the API or admin. CSV import (and the per-bank format differences that come with it) is scoped out.
-- **No deduplication.** Import the same statement twice and you get duplicate rows — which would corrupt the engine's gap calculations. Needs a fingerprint hash of (date, amount, counterparty) and a uniqueness constraint. This is the most valuable next piece of work.
+- **No bulk import.** Transactions go in one at a time via the API or admin. CSV/Statement import (and the per-bank format differences that come with it) is scoped out. 
 
 **Engine**
 - Thresholds and weights were tuned on the same 7 groups used to evaluate them. 100% accuracy on that set proves the logic runs, not that it generalises.
@@ -197,6 +196,6 @@ Honest list. Each of these is a real gap, not a hypothetical.
 
 ## What I'd do next
 
-**Deduplication with idempotent import**, because it's the gap that actually breaks correctness — duplicate rows silently corrupt the detection engine, and fixing it properly means fingerprinting transactions and enforcing uniqueness at the database level.
+**Bulk import with a partial-overlap report.** Transactions currently go in one at a time, which is nothing like how people actually get their data — they export a statement. The interesting part isn't parsing the file, it's the response: an import of 200 rows where 15 already exist should return "185 imported, 15 skipped" rather than failing wholesale or silently double-counting. The per-transaction uniqueness rule is already in place, so this builds directly on top of it.
 
 Then **price clustering** to replace the distinct-price ratio, so a subscription whose amount drifts by pennies stops being misread as a variable-amount habit.

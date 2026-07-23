@@ -11,6 +11,9 @@ class TransactionViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Transaction.objects.filter(user=self.request.user)
     
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+    
     @action(detail=False, methods=['get'], url_path='classify-transactions')
     def get_classified_transactions(self, request):
         # These fields must match the transaction shape the classifier engine expects.
